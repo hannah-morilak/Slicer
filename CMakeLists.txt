@@ -292,6 +292,9 @@ mark_as_superbuild(Slicer_BUILD_APPLICATIONUPDATE_SUPPORT)
 option(Slicer_BUILD_MULTIMEDIA_SUPPORT "Build Slicer with Multimedia support" ON)
 mark_as_superbuild(Slicer_BUILD_MULTIMEDIA_SUPPORT)
 
+option(Slicer_BUILD_QTEST_SUPPORT "Build Slicer with QTesting support" ON)
+mark_as_superbuild(Slicer_BUILD_QTEST_SUPPORT)
+
 CMAKE_DEPENDENT_OPTION(Slicer_UPDATE_TRANSLATION "update translation" OFF "Slicer_BUILD_I18N_SUPPORT" OFF)
 mark_as_advanced(Slicer_UPDATE_TRANSLATION)
 mark_as_superbuild(Slicer_UPDATE_TRANSLATION)
@@ -612,6 +615,12 @@ endif()
     list(APPEND Slicer_REQUIRED_QT_MODULES
       Multimedia
       MultimediaWidgets
+      )
+  endif()
+
+  if(Slicer_BUILD_QTEST_SUPPORT)
+    list(APPEND Slicer_REQUIRED_QT_MODULES
+      QTest
       )
   endif()
 

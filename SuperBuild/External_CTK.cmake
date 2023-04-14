@@ -34,6 +34,11 @@ if(NOT DEFINED CTK_DIR AND NOT Slicer_USE_SYSTEM_${proj})
     set(_wrap_qtmultimedia 1)
   endif()
 
+  set(_wrap_qtest 0)
+  if(Slicer_BUILD_QTEST_SUPPORT AND Slicer_USE_PYTHONQT)
+    set(_wrap_qtest 1)
+  endif()
+
   if(Slicer_USE_PYTHONQT)
     list(APPEND EXTERNAL_PROJECT_OPTIONAL_CMAKE_CACHE_ARGS
       -DPYTHON_LIBRARY:FILEPATH=${PYTHON_LIBRARY}
@@ -67,13 +72,13 @@ if(NOT DEFINED CTK_DIR AND NOT Slicer_USE_SYSTEM_${proj})
 
   ExternalProject_SetIfNotDefined(
     Slicer_${proj}_GIT_REPOSITORY
-    "${EP_GIT_PROTOCOL}://github.com/commontk/CTK.git"
+    "${EP_GIT_PROTOCOL}://github.com/hannah-morilak/CTK.git"
     QUIET
     )
 
   ExternalProject_SetIfNotDefined(
     Slicer_${proj}_GIT_TAG
-    "cd194fff1360e2da114b6b55ce963f089c6f46f2"
+    "3a0a2990a535f5b0563f6ea41dcee125f413a417"
     QUIET
     )
 
@@ -126,6 +131,7 @@ if(NOT DEFINED CTK_DIR AND NOT Slicer_USE_SYSTEM_${proj})
       -DCTK_LIB_Scripting/Python/Core_PYTHONQT_WRAP_QTUITOOLS:BOOL=${Slicer_USE_PYTHONQT}
       -DCTK_LIB_Scripting/Python/Core_PYTHONQT_WRAP_QTNETWORK:BOOL=${Slicer_USE_PYTHONQT}
       -DCTK_LIB_Scripting/Python/Core_PYTHONQT_WRAP_QTMULTIMEDIA:BOOL=${_wrap_qtmultimedia}
+      -DCTK_LIB_Scripting/Python/Core_PYTHONQT_WRAP_QTEST:BOOL=${_wrap_qtest}
       -DCTK_LIB_Scripting/Python/Core_PYTHONQT_WRAP_QTWEBKIT:BOOL=${_wrap_qtwebkit}
       -DCTK_LIB_Scripting/Python/Widgets:BOOL=${Slicer_USE_PYTHONQT}
       -DCTK_ENABLE_Python_Wrapping:BOOL=${Slicer_USE_PYTHONQT}
